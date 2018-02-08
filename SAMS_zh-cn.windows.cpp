@@ -1,16 +1,15 @@
 //Copyright (C) XiyuWang 2017-2018 All rights reserved.
-//Copyright (C) 学生成绩管理系统 2017-2018 All rights reserved.
 //Version: 16.9.18
 
-//Compiler: XiyuWang
-//Compiler E-mail Address: XiyuWang_Code@hotmail.com 
+//Author: XiyuWang
+//Author E-mail Address: XiyuWang_Code@hotmail.com 
 
 //System Language: zh-cn
 //Description Language: zh-cn
 //Code Language: C++
 
 //Lines:1100+
-//Length:31000+ 
+//Length:32000+ 
 
 /* 学生成绩管理系统 描述：
 该系统实现的功能
@@ -205,18 +204,27 @@ namespace record_input{
 			cout<<"请输入考试名称：";
 			cin>>z.exam_name; 
 			menl=max(menl,z.exam_name.length());
+			cout<<"请输入成绩：";
+			cin>>z.S;
 			for(it=stu.begin();it!=stu.end();it++)
 				if(it->id==z.id&&it->name==z.name&&it->exam_name==z.exam_name){
-					MessageBox(NULL,"该记录已存在！","学生成绩管理系统",MB_ICONWARNING|MB_SYSTEMMODAL|MB_SETFOREGROUND); 
-					found=true;
+					system("cls");
+					cout<<"错误：该记录已存在！"<<endl;
+					cout<<"学号："<<it->id<<endl;
+					cout<<"姓名："<<it->name<<endl;
+					cout<<"考试名称："<<it->exam_name<<endl;
+					cout<<"本地成绩："<<it->S<<endl;
+					cout<<"输入成绩："<<z.S<<endl;
+					cout<<"===================="<<endl;
+					cout<<"是否替换？(Y/N)"<<endl;
+					cin>>o;
+					o[0]=='Y'||o[0]=='y'?found=false:found=true;
 					break;
 				}
 			if(found){
 				found=false;
 				continue;
 			}
-			cout<<"请输入成绩：";
-			cin>>z.S;
 			stu.insert(z);
 		}
 		system("cls");
@@ -671,6 +679,7 @@ namespace file{
 		}
 	}
 	int input(bool w){
+		bool found;
 		system("cls");
 		unsigned long long int num;
 		string version;
@@ -712,7 +721,26 @@ namespace file{
 				z.id[i]=z.id[i]-3;
 			midl=max(midl,z.id.length());
 			z.S=z.S-12397;
-			stu.insert(z);
+			for(it=stu.begin();it!=stu.end();it++){
+				if(it->exam_name==z.exam_name&&it->name==z.name&&it->id==z.id){
+					cout<<"文件引入时出错：检测到相同学生信息！"<<endl;
+					cout<<"学号："<<it->id<<endl; 
+					cout<<"姓名："<<it->name<<endl;
+					cout<<"考试名称："<<it->exam_name<<endl;
+					cout<<"本地成绩："<<it->S<<endl;
+					cout<<"文件成绩："<<z.S<<endl; 
+					cout<<"===================================="<<endl;
+					cout<<"1.本地                        2.文件"<<endl; 
+					cout<<"请选择要保留的信息（序号）："<<endl; 
+					cin>>o;
+					o[0]=='1'?found=true:found=false;
+				}
+			}
+			if(found){
+				continue;
+				found=false;
+			}
+			if(!found) stu.insert(z);
 		}
 		if(!w) MessageBox(NULL,"完成！","学生成绩管理系统",MB_ICONINFORMATION|MB_SYSTEMMODAL|MB_SETFOREGROUND);
 	}
@@ -844,6 +872,7 @@ namespace ClassEdition{
 			cout<<"考试名称："<<z.exam_name<<endl;
 			for(it=stu.begin();it!=stu.end();it++)
 				if(it->id==z.id&&it->name==z.name&&it->exam_name==z.exam_name){
+					cout<<"成绩："<<it->S<<endl; 
 					cout<<"该学生信息已存在！"<<endl;
 					found=true;
 					system("pause");
