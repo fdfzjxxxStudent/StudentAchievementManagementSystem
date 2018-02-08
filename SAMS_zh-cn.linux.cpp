@@ -1,5 +1,4 @@
 //Copyright (C) XiyuWang 2017-2018 All rights reserved.
-//Copyright (C) 学生成绩管理系统 2017-2018 All rights reserved.
 //Version: 16.9.18
 
 //Compiler: XiyuWang
