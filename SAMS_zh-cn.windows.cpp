@@ -15,7 +15,7 @@
 该系统实现的功能
 1.录入+更改+删除 学生信息 
 2.文件 输入+输出
-3.四种 查询方式
+3.五种 查询方式
 4.可更改 用户信息
 5.可锁定系统  
 最新推出：班级模式 
@@ -955,7 +955,6 @@ int main(){
 			o[0]=0; 
 			system("cls");	
 			cout<<"Copyright (C) XiyuWang 2017-"<<t->tm_year+1900<<" All rights reserved."<<endl;
-			cout<<"Copyright (C) 学生成绩管理系统 2017-"<<t->tm_year+1900<<" All rights reserved."<<endl;
 			cout<<"Version:16.9.18"<<endl; 
 			system("pause");
 			o[0]=0; 
