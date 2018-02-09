@@ -734,6 +734,8 @@ namespace file{
 			z.S=z.S-12397;
 			for(it=stu.begin();it!=stu.end();it++){
 				if(it->exam_name==z.exam_name&&it->name==z.name&&it->id==z.id){
+					fileInputError:
+					system("clear"); 
 					cout<<"文件引入时出错：检测到相同学生信息！"<<endl;
 					cout<<"学号："<<it->id<<endl; 
 					cout<<"姓名："<<it->name<<endl;
@@ -745,6 +747,7 @@ namespace file{
 					cout<<"请选择要保留的信息（序号）："<<endl; 
 					cin>>o;
 					o[0]=='1'?found=true:found=false;
+					if(o[0]!='1'&&o[0]!='2') goto fileInputError;
 				}
 			}
 			if(found){
@@ -976,6 +979,7 @@ int main(){
 			o[0]=0; 
 			system("clear");	
 			cout<<"Copyright (C) XiyuWang 2017-"<<t->tm_year+1900<<" All rights reserved."<<endl;
+			cout<<"Copyright (C) 学生成绩管理系统 2017-"<<t->tm_year+1900<<" All rights reserved."<<endl;
 			cout<<"Version:16.9.18"<<endl; 
 			getchar();
 			o[0]=0; 
