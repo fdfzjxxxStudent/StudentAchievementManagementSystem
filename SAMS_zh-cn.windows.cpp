@@ -1,4 +1,5 @@
 //Copyright (C) XiyuWang 2017-2018 All rights reserved.
+//Copyright (C) 学生成绩管理系统 2017-2018 All rights reserved.
 //Version: 16.9.18
 
 //Author: XiyuWang
@@ -216,7 +217,7 @@ namespace record_input{
 					cout<<"本地成绩："<<it->S<<endl;
 					cout<<"输入成绩："<<z.S<<endl;
 					cout<<"===================="<<endl;
-					cout<<"是否替换？(Y/N)"<<endl;
+					cout<<"是否替换？(Y/N)"; 
 					cin>>o;
 					o[0]=='Y'||o[0]=='y'?found=false:found=true;
 					break;
@@ -723,6 +724,8 @@ namespace file{
 			z.S=z.S-12397;
 			for(it=stu.begin();it!=stu.end();it++){
 				if(it->exam_name==z.exam_name&&it->name==z.name&&it->id==z.id){
+					fileInputError:
+					system("cls");
 					cout<<"文件引入时出错：检测到相同学生信息！"<<endl;
 					cout<<"学号："<<it->id<<endl; 
 					cout<<"姓名："<<it->name<<endl;
@@ -731,9 +734,10 @@ namespace file{
 					cout<<"文件成绩："<<z.S<<endl; 
 					cout<<"===================================="<<endl;
 					cout<<"1.本地                        2.文件"<<endl; 
-					cout<<"请选择要保留的信息（序号）："<<endl; 
+					cout<<"请选择要保留的信息（序号）："; 
 					cin>>o;
 					o[0]=='1'?found=true:found=false;
+					if(o[0]!='1'&&o[0]!='2') goto fileInputError;
 				}
 			}
 			if(found){
@@ -955,6 +959,7 @@ int main(){
 			o[0]=0; 
 			system("cls");	
 			cout<<"Copyright (C) XiyuWang 2017-"<<t->tm_year+1900<<" All rights reserved."<<endl;
+			cout<<"Copyright (C) 学生成绩管理系统 2017-"<<t->tm_year+1900<<" All rights reserved."<<endl;
 			cout<<"Version:16.9.18"<<endl; 
 			system("pause");
 			o[0]=0; 
