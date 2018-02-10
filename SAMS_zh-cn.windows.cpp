@@ -1,5 +1,4 @@
 //Copyright (C) XiyuWang 2017-2018 All rights reserved.
-//Copyright (C) 学生成绩管理系统 2017-2018 All rights reserved.
 //Version: 16.9.18
 
 //Author: XiyuWang
@@ -959,7 +958,6 @@ int main(){
 			o[0]=0; 
 			system("cls");	
 			cout<<"Copyright (C) XiyuWang 2017-"<<t->tm_year+1900<<" All rights reserved."<<endl;
-			cout<<"Copyright (C) 学生成绩管理系统 2017-"<<t->tm_year+1900<<" All rights reserved."<<endl;
 			cout<<"Version:16.9.18"<<endl; 
 			system("pause");
 			o[0]=0; 
