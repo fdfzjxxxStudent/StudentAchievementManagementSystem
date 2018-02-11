@@ -7,6 +7,7 @@
 //System Language: zh-cn
 //Description Language: zh-cn
 //Code Language: C++
+//Edition: Windows
 
 //Lines:1100+
 //Length:32000+ 
@@ -45,7 +46,7 @@ struct student{
 	double S;//S:Score
 	string name,id,exam_name;
 };
-student z;
+student z; 
 struct cmp_ss/*ss:student score*/{
 	bool operator()(const student&x,const student&y)const{
 		if(x.exam_name<y.exam_name) return 1;
