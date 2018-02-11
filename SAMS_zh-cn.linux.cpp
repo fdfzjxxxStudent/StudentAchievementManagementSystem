@@ -7,7 +7,7 @@
 //System Language: zh-cn
 //Description Language: zh-cn
 //Code Language: C++
-//Edition: Linux 
+//Edition: Linux  
 
 //Lines:1100+
 //Length:32000+ 
