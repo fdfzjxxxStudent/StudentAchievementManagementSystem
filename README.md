@@ -4,4 +4,5 @@
 <p><a href="https://github.com/XiyuWang2006/StudentAchievementManagementSystem/blob/master/SAMS_zh-cn.windows.cpp">Windows简体中文版代码</a>
   <a href="https://github.com/XiyuWang2006/StudentAchievementManagementSystem/blob/master/SAMS_zh-cn.windows.exe">Windwos简体中文版程序</a>
 <a href="https://github.com/XiyuWang2006/StudentAchievementManagementSystem/blob/master/SAMS_zh-cn.linux.cpp">Linux简体中文版代码</a></p>
+  <a href="https://github.com/XiyuWang2006/StudentAchievementManagementSystem/blob/master/SAMS_zh-cn.linux.out">Linux简体中文版程序</a>
 <h6>P.S.:StudentAchievementManagementSystem简称SAMS，zh-cn代表简体中文</h6>
