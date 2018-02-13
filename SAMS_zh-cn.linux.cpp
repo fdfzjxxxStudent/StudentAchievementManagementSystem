@@ -1,4 +1,5 @@
-//Copyright (C) 2017-2018 XiyuWang
+//Copyright (C) XiyuWang 2017-2018 All rights reserved.
+//Copyright (C) 学生成绩管理系统 2017-2018 All rights reserved.
 //Version: 16.9.18
 
 //Author: XiyuWang
@@ -7,7 +8,7 @@
 //System Language: zh-cn
 //Description Language: zh-cn
 //Code Language: C++
-//Edition: Linux  
+//Edition: Linux 
 
 //Lines:1100+
 //Length:32000+ 
@@ -26,7 +27,8 @@
 #include <bits/stdc++.h> 
 using namespace std;
 
-unsigned long long int i,j,n,ti,menl,midl,mnl;//menl:max exam_name length	midl:max id length	mnl:max name length
+unsigned long long int i,j,n,ti;
+int menl,midl,mnl;//menl:max exam_name length	midl:max id length	mnl:max name length
 string o;//o:order
 
 time_t tt = time(NULL);
@@ -65,6 +67,10 @@ struct cmp_si/*si:student info*/{
 set<student_info,cmp_si> stuinfo;
 set<student_info,cmp_si>::iterator siit;//student info iterator
 
+int max(int a,int b){
+	if(a>b) return a;
+	else return b;
+}
 void start(int len){
 	srand(time(0));
 	string key,ans;
@@ -84,7 +90,6 @@ void start(int len){
 
 void load(){
 	system("clear");
-	system("title 学生成绩管理系统-加载中......");
 	cout<<"Copyright (C) XiyuWang 2017-"<<t->tm_year+1900<<" All rights reserved."<<endl;
 	cout<<"Copyright (C) 学生成绩管理系统 2017-"<<t->tm_year+1900<<" All rights reserved."<<endl;
 	cout<<"Version:16.9.18"<<endl; 
@@ -97,17 +102,15 @@ void load(){
 namespace user{ 
 	//user operation 
 	void reg(){
-		;
-		system("title 学生成绩管理系统");
 		system("clear");
 		cout<<"您尚未注册，请输入用户名：";
 		cin>>o;
 		ofstream fout;
-		fout.open("SAMS\\Control.info");
+		fout.open("SAMS/Control.info");
 		if(!fout){
 			system("clear");
 			cout<<"系统错误！"<<endl; 
-			getchar();
+			cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 			exit(0);
 		}
 		fout<<o<<endl;
@@ -117,16 +120,16 @@ namespace user{
 		//加密算法：ASCII码加123
 		for(long long i=0;i<=o.size();i++)
 			o[i]=o[i]+123;
-		fout.open("SAMS\\Control.passwd");
+		fout.open("SAMS/Control.passwd");
 		if(!fout){
-			system("clear");cout<<"系统错误"<<endl<<"请以管理员身份重新运行程序！"<<endl;getchar();
+			system("clear");cout<<"系统错误"<<endl<<"请以管理员身份重新运行程序！"<<endl;cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 			exit(0);
 		}
 		fout<<o<<endl;
 		fout.close();
 		system("clear");
 		cout<<"注册成功！"<<endl;
-		getchar(); 
+		cout<<"请 任意键+Enter 继续......"<<endl; cin>>o; 
 	}
 	int wt;//wt:wrong_time
 	int login(int t){
@@ -139,10 +142,9 @@ namespace user{
 		}
 		system("mkdir SAMS");
 		system("clear");
-		system("title 学生成绩管理系统-登陆");
 		string usr,passwd;
 		ifstream fin;
-		fin.open("SAMS\\Control.info");
+		fin.open("SAMS/Control.info");
 		if(!fin) user::reg();
 		system("clear");
 		cout<<"登陆"<<endl; 
@@ -150,17 +152,17 @@ namespace user{
 		cin>>o;
 		fin>>usr; 
 		if(!fin){
-			system("clear");cout<<"系统错误"<<endl<<"请以管理员身份重新运行程序！"<<endl;getchar();
+			system("clear");cout<<"系统错误"<<endl<<"请以管理员身份重新运行程序！"<<endl;cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 			exit(0);
 		}
 		if(o!=usr){
 			system("clear");
 			cout<<"用户不存在！"<<endl;
-			getchar();
+			cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 			login(t);
 		}
 		fin.close();
-		fin.open("SAMS\\Control.passwd");
+		fin.open("SAMS/Control.passwd");
 		fin>>passwd;
 		fin.close();
 		//解密算法：ASCII码减123 
@@ -173,12 +175,12 @@ namespace user{
 			wt++;
 			system("clear");
 			cout<<"密码错误！"<<endl;
-			getchar(); 
+			cout<<"请 任意键+Enter 继续......"<<endl; cin>>o; 
 			login(wt);
 		}
 		system("clear");
 		cout<<"密码正确！"<<endl;
-		getchar(); 
+		cout<<"请 任意键+Enter 继续......"<<endl; cin>>o; 
 		return 0;
 	}
 	//user operation end
@@ -226,7 +228,7 @@ namespace record_input{
 		}
 		system("clear");
 		cout<<"已完成对"<<num<<"个学生的数据录入！"<<endl;
-		getchar(); 
+		cout<<"请 任意键+Enter 继续......"<<endl; cin>>o; 
 	}
 	int rchange(unsigned long long int num){
 		for(i=1;i<=num;i++){
@@ -258,7 +260,7 @@ namespace record_input{
 				}
 				if(j==stu.size()){
 					system("clear");
-					cout<<"未找到该学生的信息，请检查信息是否已经录入系统！"<<endl;getchar();
+					cout<<"未找到该学生的信息，请检查信息是否已经录入系统！"<<endl;cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 					return 1;
 				}
 			}
@@ -272,7 +274,7 @@ namespace record_input{
 		}
 		system("clear");
 		cout<<"已完成对"<<num<<"个学生的数据更改！"<<endl;
-		getchar(); 
+		cout<<"请 任意键+Enter 继续......"<<endl; cin>>o; 
 	}
 	int rdelete(unsigned long long int num){
 		for(i=1;i<=num;i++){
@@ -303,14 +305,14 @@ namespace record_input{
 				}
 				if(j==stu.size()){
 					system("clear");
-					cout<<"未找到该学生的信息，请检查信息是否已经录入系统！"<<endl;getchar();
+					cout<<"未找到该学生的信息，请检查信息是否已经录入系统！"<<endl;cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 					return 1;
 				}
 			}
 		}
 		system("clear");
 		cout<<"已完成对"<<num<<"个学生的数据删除！"<<endl;
-		getchar(); 
+		cout<<"请 任意键+Enter 继续......"<<endl; cin>>o; 
 	}
 	//record operation end
 }
@@ -322,7 +324,7 @@ namespace record_output{
 		system("clear");
 		if(stu.size()<1){
 			cout<<"暂无记录！"<<endl;
-			getchar(); 
+			cout<<"请 任意键+Enter 继续......"<<endl; cin>>o; 
 			return 1;
 		}
 		clock_t start = clock();
@@ -361,14 +363,14 @@ namespace record_output{
 		cout<<"平均分："<<Average<<endl<<endl;
 		clock_t end   = clock();
 		cout << "使用时间：" << (double)(end - start) / CLOCKS_PER_SEC << " 秒" << endl;
-		getchar();
+		cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 	}
 	//output only one student's information
 	int find(){
 		system("clear");
 		if(stu.size()<1){
 			cout<<"暂无记录！"<<endl;
-			getchar(); 
+			cout<<"请 任意键+Enter 继续......"<<endl; cin>>o; 
 			return 1;
 		}
 		double Average,All;
@@ -416,11 +418,11 @@ namespace record_output{
 		if(f==true){
 			clock_t end   = clock();
 			cout << "使用时间：" << (double)(end - start) / CLOCKS_PER_SEC << " 秒" << endl;
-			getchar();
+			cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 			return 1;
 		}
 		system("clear");
-		cout<<"未找到该学生的信息，请检查信息是否已经录入系统！"<<endl;getchar(); 
+		cout<<"未找到该学生的信息，请检查信息是否已经录入系统！"<<endl;cout<<"请 任意键+Enter 继续......"<<endl; cin>>o; 
 		return 1;
 	}
 	//output information in given examname
@@ -428,7 +430,7 @@ namespace record_output{
 		system("clear");
 		if(stu.size()<1){
 			cout<<"暂无记录！"<<endl;
-			getchar(); 
+			cout<<"请 任意键+Enter 继续......"<<endl; cin>>o; 
 			return 1;
 		}
 		double Average,All;
@@ -476,11 +478,11 @@ namespace record_output{
 		if(f==true){
 			clock_t end   = clock();
 			cout << "使用时间：" << (double)(end - start) / CLOCKS_PER_SEC << " 秒" << endl;
-			getchar();
+			cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 			return 1;
 		}
 		system("clear");
-		cout<<"未找到该考试中任何学生的信息，请检查信息是否已经录入系统！"<<endl;getchar();
+		cout<<"未找到该考试中任何学生的信息，请检查信息是否已经录入系统！"<<endl;cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 		return 1;
 	}
 	//output information between given lowest score and given highest score
@@ -488,7 +490,7 @@ namespace record_output{
 		system("clear");
 		if(stu.size()<1){
 			cout<<"暂无记录！"<<endl;
-			getchar(); 
+			cout<<"请 任意键+Enter 继续......"<<endl; cin>>o; 
 			return 1;
 		}
 		double Average,All;
@@ -538,12 +540,12 @@ namespace record_output{
 		if(f==true){
 			clock_t end   = clock();
 			cout << "使用时间：" << (double)(end - start) / CLOCKS_PER_SEC << " 秒" << endl;
-			getchar();
+			cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 			return 1;
 		}
 		system("clear");
 		cout<<"未找到该分数段中任何学生的信息，请检查信息是否已经录入系统！"<<endl;
-		getchar();
+		cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 		return 1;
 	}
 	//output information in given classname 
@@ -553,7 +555,7 @@ namespace record_output{
 		system("clear");
 		if(stu.size()<1){
 			cout<<"暂无记录！"<<endl;
-			getchar(); 
+			cout<<"请 任意键+Enter 继续......"<<endl; cin>>o; 
 			return 1;
 		}
 		ifstream fin;	
@@ -611,7 +613,7 @@ namespace record_output{
 		cout<<"平均分："<<Average<<endl<<endl;
 		clock_t end   = clock();
 		cout << "使用时间：" << (double)(end - start) / CLOCKS_PER_SEC << " 秒" << endl;
-		getchar();
+		cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 		return 1;
 	}
 	//record output end
@@ -627,7 +629,7 @@ namespace file{
 		fout.open("学生成绩信息.csv",ios::out|ios::trunc); 
 		if(!fout){
 			cout<<"错误："<<endl<<"无法保存文件！"<<endl;
-			getchar(); 
+			cout<<"请 任意键+Enter 继续......"<<endl; cin>>o; 
 			return 1;
 		}
 		if(stu.size()==0) fout<<"暂无记录！"<<endl;
@@ -661,7 +663,7 @@ namespace file{
 		fout.open("StudentScore.dat"); 
 		if(!fout){
 			cout<<"错误："<<endl<<"无法保存文件！"<<endl;
-			getchar(); 
+			cout<<"请 任意键+Enter 继续......"<<endl; cin>>o; 
 			return 1;
 		}
 		fout<<"16.9.18"<<endl;
@@ -684,7 +686,7 @@ namespace file{
 		if(!save){
 			cout<<"完成！请关闭预览窗口（Excel表格窗口）后继续！"<<endl;
 			system("学生成绩信息.csv");
-			getchar();
+			cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 		}
 	}
 	int input(bool w){
@@ -696,7 +698,7 @@ namespace file{
 		fin.open("StudentScore.dat"); 
 		if(!fin&&!w){
 			cout<<"文件 \"StudentScore.dat\" 不存在！"<<endl;
-			getchar();
+			cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 			return 1;
 		}
 		if(!fin&&w) return 1; 
@@ -705,7 +707,7 @@ namespace file{
 			cout<<"文件版本与系统不符，无法录入信息！"<<endl;
 			cout<<"文件版本："<<version<<endl; 
 			cout<<"系统版本：16.9.18"<<endl;
-			getchar();
+			cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 			return 1;
 		}
 		if(version!="16.9.18"&&w) return 1;
@@ -715,7 +717,7 @@ namespace file{
 			cout<<"系统当前数据量："<<stu.size()<<endl;
 			cout<<"录入后数据量："<<num+stu.size()<<endl;
 			cout<<"超过标准："<<num+stu.size()-10000<<endl;
-			getchar();
+			cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 			return 1;
 		}
 		if((num+stu.size())>=10000&w) return 1;
@@ -757,7 +759,7 @@ namespace file{
 		}
 		if(!w){
 			cout<<"完成！"<<endl;
-			getchar();
+			cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 		}
 	}
 	//file operation end
@@ -775,7 +777,7 @@ namespace ClassEdition{
 		fout.open("ClassEdition.dat");
 		if(!fout){
 			cout<<"系统错误！请尝试重启系统！"<<endl;
-			getchar();
+			cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 			return 1;
 		}
 		system("clear");
@@ -801,7 +803,7 @@ namespace ClassEdition{
 		fout.open("ClassEdition.dat");
 		if(!fout){
 			cout<<"系统错误！请尝试重启系统！"<<endl;
-			getchar();
+			cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 			return 1;
 		}
 		string classname,passwd;
@@ -822,7 +824,7 @@ namespace ClassEdition{
 		cin>>n;
 		if(n+stu.size()>=10000){
 			cout<<"班级人数过多！"<<endl;
-			getchar();
+			cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 			return 1;
 		}
 		fout<<classname<<" "<<passwd<<" "<<n<<endl; 
@@ -843,7 +845,7 @@ namespace ClassEdition{
 		fout.close();
 		system("clear");
 		cout<<"班级创建完成！"<<endl;
-		getchar();
+		cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 	}
 	int main(){
 		system("clear");
@@ -864,7 +866,7 @@ namespace ClassEdition{
 		if(passwd!=pwd){
 			system("clear");
 			cout<<"密码错误！"<<endl; 
-			getchar();
+			cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 			return 1;
 		}
 		system("clear");
@@ -891,7 +893,7 @@ namespace ClassEdition{
 					cout<<"成绩："<<it->S<<endl; 
 					cout<<"该学生信息已存在！"<<endl;
 					found=true;
-					getchar();
+					cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 					break; 
 				}
 			if(found){
@@ -904,7 +906,7 @@ namespace ClassEdition{
 		}
 		system("clear");
 		cout<<"班级模式数据录入结束！"<<endl;
-		getchar(); 
+		cout<<"请 任意键+Enter 继续......"<<endl; cin>>o; 
 	}
 	//Class Edition
 }
@@ -932,8 +934,6 @@ int main(){
 			midl=max(midl,it->id.length());
 		}
 		system("clear");
-		system("title 学生成绩管理系统");
-		;
 		cout<<"学生成绩管理系统";
 		cout<<" 日期："<<t->tm_year+1900<<"/"<<t->tm_mon+1<<"/"<<t->tm_mday;
 		cout<<" 时间："<<t->tm_hour<<":";
@@ -953,7 +953,7 @@ int main(){
 		if(t->tm_min>=lockm&&t->tm_hour>=lockh){
 			system("clear");
 			cout<<"挂机超过5分钟，自动登出！"<<endl;
-			getchar();
+			cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 			start(4);
 			user::login(1);
 		}
@@ -977,9 +977,10 @@ int main(){
 		if(o[0]=='@'){
 			o[0]=0; 
 			system("clear");	
-			cout<<"Copyright (C) 2017-2018 XiyuWang"<<endl;
+			cout<<"Copyright (C) XiyuWang 2017-"<<t->tm_year+1900<<" All rights reserved."<<endl;
+			cout<<"Copyright (C) 学生成绩管理系统 2017-"<<t->tm_year+1900<<" All rights reserved."<<endl;
 			cout<<"Version:16.9.18"<<endl; 
-			getchar();
+			cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 			o[0]=0; 
 		}
 		if(o[0]=='1'){
@@ -1015,7 +1016,7 @@ int main(){
 			if(o[0]=='1'&&stu.size()>=10000){
 				system("clear");
 				cout<<"数据量过大，不可继续录入信息！"<<endl;
-				getchar();
+				cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 			}
 			if(o[0]=='2'){
 				system("clear");
@@ -1035,7 +1036,7 @@ int main(){
 				fin.open("ClassEdition.dat");
 				if(!fin){
 					cout<<"您尚未创建班级！请按任意键继续......"<<endl;
-					getchar();
+					cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 					ClassEdition::make();
 				}
 				else ClassEdition::main();
@@ -1092,7 +1093,7 @@ int main(){
 			if(o[0]=='5'&&fin) record_output::find_clssnm();
 			if(o[0]=='5'&&!fin){
 				cout<<"您尚未创建班级！"<<endl<<"请前往 主页=>学生信息操作=>4.班级模式录入信息 创建班级！"<<endl;
-				getchar();
+				cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 			}
 			o[0]=0;
 		}
@@ -1118,15 +1119,15 @@ int main(){
 					start(4);
 					system("clear");
 					cout<<"您需要重新登录！"<<endl;
-					getchar();
+					cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 					user::login(1);
 					system("clear");
 					cout<<"登陆成功！"<<endl;
-					getchar(); 
+					cout<<"请 任意键+Enter 继续......"<<endl; cin>>o; 
 					user::reg();
 					system("clear");
 					cout<<"完成！"<<endl;
-					getchar(); 
+					cout<<"请 任意键+Enter 继续......"<<endl; cin>>o; 
 					break;
 				}
 			}
@@ -1134,7 +1135,7 @@ int main(){
 			if(o[0]=='3'){
 				system("clear");
 				cout<<"请发送邮件至："<<endl<<"XiyuWang_Code@hotmail.com"<<endl;
-				getchar(); 
+				cout<<"请 任意键+Enter 继续......"<<endl; cin>>o; 
 			}
 			if(o[0]=='4'){
 				ifstream fin;
@@ -1147,7 +1148,7 @@ int main(){
 				system("clear");
 				cout<<"当前数据量："<<stu.size()<<endl; 
 				if(fin) cout<<"班级 "<<clssnm<<" 中的学生量："<<stuinfo.size()<<endl; 
-				getchar();
+				cout<<"请 任意键+Enter 继续......"<<endl; cin>>o;
 			}
 		}
 		o[0]=0; 
