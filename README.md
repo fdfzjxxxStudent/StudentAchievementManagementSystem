@@ -9,4 +9,5 @@
  <a href="https://github.com/XiyuWang2006/StudentAchievementManagementSystem/tree/master/LinuxEdition/">Linux简体中文版</a>
 <a href="https://github.com/XiyuWang2006/StudentAchievementManagementSystem/tree/master/LinuxEdition/SAMS_zh-cn.linux.cpp">Linux简体中文版代码</a>
   <a href="https://github.com/XiyuWang2006/StudentAchievementManagementSystem/tree/master/LinuxEdition/SAMS_zh-cn.linux.out">Linux简体中文版程序</a></p>
+<h5>注意：请务必使用g++编译，其它编译器可能会报错，也可能运行时出错！</h5>
 <h6>P.S.:StudentAchievementManagementSystem简称SAMS，zh-cn代表简体中文</h6>
