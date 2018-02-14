@@ -12,7 +12,7 @@
 <h3>    (3)查看特定分数线内所有学生的信息</h3>
 <h3>    (4)查看特定考试内所有学生的信息</h3>
 <h3>    (5)查看现有班级内所有学生的信息</h3>
-<h3>3.必须使用管理员登录，密码错误3次将导致计算机强制关机（学生模式登陆见StudentInformationQuerySystem学生信息查询系统，和本系统配套）</h3>
+<h3>3.必须使用管理员登录，密码错误3次将导致计算机强制关机（学生模式登陆见StudentAchievementQuerySystem学生信息查询系统，和本系统配套）</h3>
 <hr></hr>
 <p><a href="https://github.com/XiyuWang2006/StudentAchievementManagementSystem/tree/master/WindowsEdition/">Windows简体中文版</a>
  <a href="https://github.com/XiyuWang2006/StudentAchievementManagementSystem/tree/master/LinuxEdition/">Linux简体中文版</a></p>
