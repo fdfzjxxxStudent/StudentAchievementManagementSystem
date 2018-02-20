@@ -1,4 +1,4 @@
-//Copyright (C) 2017-2018 XiyuWang All rights reserved.
+//Copyright (C) 2018 XiyuWang All rights reserved.
 //Version: 16.9.18
 
 //Author: XiyuWang
@@ -196,148 +196,148 @@ namespace user{
 namespace record_input{ 
 	//record operation (input,change,delete)
 	int rinput(unsigned long long int num){
+		ris: 
+		o[0]=0; 
 		bool found=false;
-		for(i=1;i<=num;i++){
-			ri:
-			system("cls");
-			cout<<"正在输入第"<<i<<"个学生的信息，共"<<num<<"个......"<<endl; 
-			cout<<"请输入学号：";
-			cin>>z.id;
-			midl=max(midl,z.id.length());
-			cout<<"请输入姓名：";
-			cin>>z.name;
-			mnl=max(mnl,z.name.length());
-			cout<<"请输入考试名称：";
-			cin>>z.exam_name; 
-			menl=max(menl,z.exam_name.length());
-			string tmp; 
-			inputScore:
-			cout<<"请输入成绩：";
-			cin>>tmp;
-			for(int iii=0;iii<tmp.size();iii++)
-				if((tmp[iii]<'0'||tmp[iii]>'9')&&tmp[iii]!='.'){
-					system("cls");
-					cout<<endl<<"成绩不合法！请重新输入！"<<endl; 
-					system("pause");
-					system("cls");
-					goto inputScore;
-				}
-			z.S=atof(tmp.c_str());
-			for(it=stu.begin();it!=stu.end();it++)
-				if(it->id==z.id&&it->name==z.name&&it->exam_name==z.exam_name){
-					system("cls");
-					cout<<"错误：该记录已存在！"<<endl;
-					cout<<"学号："<<it->id<<endl;
-					cout<<"姓名："<<it->name<<endl;
-					cout<<"考试名称："<<it->exam_name<<endl;
-					cout<<"本地成绩："<<it->S<<endl;
-					cout<<"输入成绩："<<z.S<<endl;
-					cout<<"===================="<<endl;
-					cout<<"是否替换？(Y/N)"; 
-					cin>>o;
-					o[0]=='Y'||o[0]=='y'?found=false:found=true;
-					break;
-				}
-			if(found){
-				found=false;
-				continue;
-			}
-			stu.insert(z);
-		}
+		ri:
 		system("cls");
-		cout<<"已完成对"<<num<<"个学生的数据录入！"<<endl;
-		system("pause"); 
+		cout<<"请输入学号：";
+		cin>>z.id;
+		midl=max(midl,z.id.length());
+		cout<<"请输入姓名：";
+		cin>>z.name;
+		mnl=max(mnl,z.name.length());
+		cout<<"请输入考试名称：";
+		cin>>z.exam_name; 
+		menl=max(menl,z.exam_name.length());
+		string tmp; 
+		inputScore:
+		cout<<"请输入成绩：";
+		cin>>tmp;
+		for(int iii=0;iii<tmp.size();iii++)
+			if((tmp[iii]<'0'||tmp[iii]>'9')&&tmp[iii]!='.'){
+				system("cls");
+				cout<<endl<<"成绩不合法！请重新输入！"<<endl; 
+				system("pause");
+				system("cls");
+				goto inputScore;
+			}
+		z.S=atof(tmp.c_str());
+		for(it=stu.begin();it!=stu.end();it++)
+			if(it->id==z.id&&it->name==z.name&&it->exam_name==z.exam_name){
+				system("cls");
+				cout<<"错误：该记录已存在！"<<endl;
+				cout<<"学号："<<it->id<<endl;
+				cout<<"姓名："<<it->name<<endl;
+				cout<<"考试名称："<<it->exam_name<<endl;
+				cout<<"本地成绩："<<it->S<<endl;
+				cout<<"输入成绩："<<z.S<<endl;
+				cout<<"===================="<<endl;
+				cout<<"是否替换？(Y/N)"; 
+				cin>>o;
+				o[0]=='Y'||o[0]=='y'?found=false:found=true;
+				break;
+			}
+		stu.insert(z);
+		system("cls");
+		cout<<"输入完成！是否继续输入？(Y/N)"<<endl;
+		cin>>o;
+		if(o[0]=='y'||o[0]=='Y') goto ris;
+		else return 0;
 	}
 	int rchange(unsigned long long int num){
-		for(i=1;i<=num;i++){
-			system("cls");
-			string tmp;
-			j=1;
-			cout<<"正在更改第"<<i<<"个学生的信息，共"<<num<<"个......"<<endl; 
-			cout<<"请输入学生学号或姓名：";
-			cin>>tmp;
-			cout<<"请输入考试名称：";
-			cin>>z.exam_name; 
-			for(it=stu.begin();it!=stu.end();it++,j++){
-				if((it->id==tmp||it->name==tmp)&&it->exam_name==z.exam_name){
-					system("cls"); 
-					cout<<"该学生原信息"<<endl;
-					cout<<"学号："<<it->id<<endl;
-					cout<<"姓名："<<it->name<<endl;
-					cout<<"考试名称："<<it->exam_name<<endl; 
-					cout<<"成绩："<<it->S<<endl;
-					if(MessageBox(NULL,"您确定要更改该学生的信息吗？","学生成绩管理系统",MB_YESNO|MB_ICONQUESTION|MB_SYSTEMMODAL|MB_SETFOREGROUND)==IDYES){
-						z.id=it->id;
-						z.name=it->name;
-						stu.erase(it);
-						break;
-					}
-					else return 1;
-				}
-				if(j==stu.size()){
-					system("cls");
-					MessageBox(NULL,"未找到该学生的信息，请检查信息是否已经录入系统！","学生成绩管理系统",MB_ICONWARNING|MB_SYSTEMMODAL|MB_SETFOREGROUND);
-					return 1;
-				}
-			}
-			rc:
-			cout<<"请输入新考试名称：";
-			cin>>z.exam_name; 
-			menl=max(menl,z.exam_name.length());
-			string ttmp;
-			inputScore:
-			cout<<"请输入成绩：";
-			cin>>ttmp;
-			for(int iii=0;iii<ttmp.size();iii++)
-				if((ttmp[iii]<'0'||ttmp[iii]>'9')&&ttmp[iii]!='.'){
-					system("cls");
-					cout<<endl<<"成绩不合法！请重新输入！"<<endl; 
-					system("pause");
-					system("cls");
-					goto inputScore;
-				}
-			z.S=atof(ttmp.c_str());
-			stu.insert(z);
-		}
+		rcs:
+		o[0]=0;
 		system("cls");
-		cout<<"已完成对"<<num<<"个学生的数据更改！"<<endl;
-		system("pause"); 
+		string tmp;
+		j=1;
+		cout<<"正在更改第"<<i<<"个学生的信息，共"<<num<<"个......"<<endl; 
+		cout<<"请输入学生学号或姓名：";
+		cin>>tmp;
+		cout<<"请输入考试名称：";
+		cin>>z.exam_name; 
+		for(it=stu.begin();it!=stu.end();it++,j++){
+			if((it->id==tmp||it->name==tmp)&&it->exam_name==z.exam_name){
+				system("cls"); 
+				cout<<"该学生原信息"<<endl;
+				cout<<"学号："<<it->id<<endl;
+				cout<<"姓名："<<it->name<<endl;
+				cout<<"考试名称："<<it->exam_name<<endl; 
+				cout<<"成绩："<<it->S<<endl;
+				if(MessageBox(NULL,"您确定要更改该学生的信息吗？","学生成绩管理系统",MB_YESNO|MB_ICONQUESTION|MB_SYSTEMMODAL|MB_SETFOREGROUND)==IDYES){
+					z.id=it->id;
+					z.name=it->name;
+					stu.erase(it);
+					break;
+				}
+				else return 1;
+			}
+			if(j==stu.size()){
+				system("cls");
+				MessageBox(NULL,"未找到该学生的信息，请检查信息是否已经录入系统！","学生成绩管理系统",MB_ICONWARNING|MB_SYSTEMMODAL|MB_SETFOREGROUND);
+				return 1;
+			}
+		}
+		rc:
+		cout<<"请输入新考试名称：";
+		cin>>z.exam_name; 
+		menl=max(menl,z.exam_name.length());
+		string ttmp;
+		inputScore:
+		cout<<"请输入成绩：";
+		cin>>ttmp;
+		for(int iii=0;iii<ttmp.size();iii++)
+			if((ttmp[iii]<'0'||ttmp[iii]>'9')&&ttmp[iii]!='.'){
+				system("cls");
+				cout<<endl<<"成绩不合法！请重新输入！"<<endl; 
+				system("pause");
+				system("cls");
+				goto inputScore;
+			}
+		z.S=atof(ttmp.c_str());
+		stu.insert(z);
+		system("cls");
+		cout<<"更改完成！是否继续更改？(Y/N)"<<endl;
+		cin>>o;
+		if(o[0]=='Y'||o[0]=='y') goto rcs;
+		else return 0; 
 	}
 	int rdelete(unsigned long long int num){
-		for(i=1;i<=num;i++){
-			system("cls");
-			string tmp;
-			j=1;
-			cout<<"正在删除第"<<i<<"个学生的信息，共"<<num<<"个......"<<endl; 
-			cout<<"请输入学生学号或姓名：";
-			cin>>tmp;
-			cout<<"请输入考试名称：";
-			cin>>z.exam_name; 
-			for(it=stu.begin();it!=stu.end();it++,j++){
-				if((it->id==tmp||it->name==tmp)&&z.exam_name==it->exam_name){
-					system("cls"); 
-					cout<<"该学生原信息"<<endl;
-					cout<<"学号："<<it->id<<endl;
-					cout<<"姓名："<<it->name<<endl;
-					cout<<"考试名称："<<it->exam_name<<endl; 
-					cout<<"成绩："<<it->S<<endl;
-					if(MessageBox(NULL,"您确定要删除该学生的信息吗？","学生成绩管理系统",MB_YESNO|MB_ICONQUESTION|MB_SYSTEMMODAL|MB_SETFOREGROUND)==IDYES){
-						z.id=it->id;
-						stu.erase(it);
-						break;
-					}
-					else return 1;
+		rds:
+		system("cls");
+		string tmp;
+		j=1;
+		cout<<"正在删除第"<<i<<"个学生的信息，共"<<num<<"个......"<<endl; 
+		cout<<"请输入学生学号或姓名：";
+		cin>>tmp;
+		cout<<"请输入考试名称：";
+		cin>>z.exam_name; 
+		for(it=stu.begin();it!=stu.end();it++,j++){
+			if((it->id==tmp||it->name==tmp)&&z.exam_name==it->exam_name){
+				system("cls"); 
+				cout<<"该学生原信息"<<endl;
+				cout<<"学号："<<it->id<<endl;
+				cout<<"姓名："<<it->name<<endl;
+				cout<<"考试名称："<<it->exam_name<<endl; 
+				cout<<"成绩："<<it->S<<endl;
+				if(MessageBox(NULL,"您确定要删除该学生的信息吗？","学生成绩管理系统",MB_YESNO|MB_ICONQUESTION|MB_SYSTEMMODAL|MB_SETFOREGROUND)==IDYES){
+					z.id=it->id;
+					stu.erase(it);
+					break;
 				}
-				if(j==stu.size()){
-					system("cls");
-					MessageBox(NULL,"未找到该学生的信息，请检查信息是否已经录入系统！","学生成绩管理系统",MB_ICONWARNING|MB_SYSTEMMODAL|MB_SETFOREGROUND); 
-					return 1;
-				}
+				else return 1;
+			}
+			if(j==stu.size()){
+				system("cls");
+				MessageBox(NULL,"未找到该学生的信息，请检查信息是否已经录入系统！","学生成绩管理系统",MB_ICONWARNING|MB_SYSTEMMODAL|MB_SETFOREGROUND); 
+				return 1;
 			}
 		}
 		system("cls");
-		cout<<"已完成对"<<num<<"个学生的数据删除！"<<endl;
-		system("pause"); 
+		cout<<"删除完成！是否删除更改？(Y/N)"<<endl;
+		cin>>o;
+		if(o[0]=='Y'||o[0]=='y') goto rds;
+		else return 0; 
 	}
 	//record operation end
 }
@@ -864,7 +864,6 @@ namespace ClassEdition{
 		system("cls");
 		string clssnm,pwd,classname,passwd;
 		int n=0;
-		bool found=false;
 		ifstream fin;
 		fin.open("ClassEdition.dat");
 		fin>>clssnm>>pwd>>n;
@@ -901,18 +900,6 @@ namespace ClassEdition{
 			cout<<"学号："<<z.id<<endl;
 			cout<<"姓名："<<z.name<<endl;
 			cout<<"考试名称："<<z.exam_name<<endl;
-			for(it=stu.begin();it!=stu.end();it++)
-				if(it->id==z.id&&it->name==z.name&&it->exam_name==z.exam_name){
-					cout<<"成绩："<<it->S<<endl; 
-					cout<<"该学生信息已存在！"<<endl;
-					found=true;
-					system("pause");
-					break; 
-				}
-			if(found){
-				found=false;
-				continue;
-			}
 			string tmp; 
 			inputScore:
 			cout<<"请输入成绩：";
@@ -925,7 +912,23 @@ namespace ClassEdition{
 					system("cls");
 					goto inputScore;
 				}
-			z.S=atof(tmp.c_str());
+			for(it=stu.begin();it!=stu.end();it++)
+				if(it->id==z.id&&it->name==z.name&&it->exam_name==z.exam_name){
+					ef:
+					system("cls");
+					cout<<"学号："<<it->id<<endl;
+					cout<<"姓名："<<it->name<<endl;
+					cout<<"考试名称："<<it->exam_name<<endl; 
+					cout<<"本地成绩："<<it->S<<endl; 
+					cout<<"输入成绩："<<z.S<<endl; 
+					cout<<"错误：该学生信息已存在！"<<endl;
+					cout<<"================================="<<endl;
+					cout<<"1.保存本地信息     2.保存输入信息"<<endl; 
+					cin>>o;
+					if(o[0]=='1') z.S=it->S;
+					if(o[0]!='1'&&o[0]!='2') goto ef;
+					break;  
+				}
 			stu.insert(z);
 		}
 		system("cls");
