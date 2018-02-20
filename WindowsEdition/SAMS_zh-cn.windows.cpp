@@ -195,7 +195,7 @@ namespace user{
 
 namespace record_input{ 
 	//record operation (input,change,delete)
-	int rinput(unsigned long long int num){
+	int rinput(){
 		ris: 
 		o[0]=0; 
 		bool found=false;
@@ -245,13 +245,12 @@ namespace record_input{
 		if(o[0]=='y'||o[0]=='Y') goto ris;
 		else return 0;
 	}
-	int rchange(unsigned long long int num){
+	int rchange(){
 		rcs:
 		o[0]=0;
 		system("cls");
 		string tmp;
 		j=1;
-		cout<<"正在更改第"<<i<<"个学生的信息，共"<<num<<"个......"<<endl; 
 		cout<<"请输入学生学号或姓名：";
 		cin>>tmp;
 		cout<<"请输入考试名称：";
@@ -302,12 +301,11 @@ namespace record_input{
 		if(o[0]=='Y'||o[0]=='y') goto rcs;
 		else return 0; 
 	}
-	int rdelete(unsigned long long int num){
+	int rdelete(){
 		rds:
 		system("cls");
 		string tmp;
 		j=1;
-		cout<<"正在删除第"<<i<<"个学生的信息，共"<<num<<"个......"<<endl; 
 		cout<<"请输入学生学号或姓名：";
 		cin>>tmp;
 		cout<<"请输入考试名称：";
@@ -1028,29 +1026,9 @@ int main(){
 			cout<<"按其他键 返回"<<endl;
 			cout<<"请输入命令代码：";
 			o[0]=getch(); 
-			if(o[0]=='1'&&stu.size()<10000){
-				system("cls");
-				cout<<"请输入学生个数：";
-				cin>>n;
-				record_input::rinput(n);
-			}
-			if(o[0]=='1'&&stu.size()>=10000){
-				system("cls");
-				cout<<"数据量过大，不可继续录入信息！"<<endl;
-				system("pause");
-			}
-			if(o[0]=='2'){
-				system("cls");
-				cout<<"请输入更改个数：";
-				cin>>n;
-				record_input::rchange(n);
-			}
-			if(o[0]=='3'){
-				system("cls");
-				cout<<"请输入删除个数：";
-				cin>>n;
-				record_input::rdelete(n);
-			}
+			if(o[0]=='1'&&stu.size()<10000) record_input::rinput();
+			if(o[0]=='2') record_input::rchange();
+			if(o[0]=='3') record_input::rdelete();
 			if(o[0]=='4'){
 				system("cls");
 				ifstream fin;
