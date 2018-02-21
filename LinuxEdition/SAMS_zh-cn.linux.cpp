@@ -741,7 +741,7 @@ namespace file{
 			return 1;
 		}
 		if((num+stu.size())>=10000&w) return 1;
-		for(i=1;i<=num;i++){
+		for(int iii=1;iii<=num;iii++){
 			fin>>z.exam_name>>z.id>>z.name>>z.S; 
 			for(int i=0;i<=z.exam_name.size();i++)
 				z.exam_name[i]=z.exam_name[i]-1;
@@ -1041,7 +1041,14 @@ int main(){
 			cout<<"按其他键 返回"<<endl;
 			cout<<"请输入命令代码：";
 			cin>>o; 
-			if(o[0]=='1') record_input::rinput();
+			if(o[0]=='1'&&stu.size()<10000) record_input::rinput();
+			if(o[0]=='1'&&stu.size()>10000){
+				system("clear");
+				cout<<"数据量过大，不可继续录入信息！"<<endl;
+				cout<<"请按 任意键+Enter 继续......"<<endl;
+				cin>>o;
+				o[0]=0;
+			}
 			if(o[0]=='2') record_input::rchange();
 			if(o[0]=='3') record_input::rdelete();
 			if(o[0]=='4'){
