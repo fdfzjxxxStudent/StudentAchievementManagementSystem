@@ -332,7 +332,7 @@ namespace record_input{
 			}
 		}
 		system("cls");
-		cout<<"删除完成！是否删除更改？(Y/N)"<<endl;
+		cout<<"删除完成！是否继续删除？(Y/N)"<<endl;
 		cin>>o;
 		if(o[0]=='Y'||o[0]=='y') goto rds;
 		else return 0; 
@@ -735,7 +735,7 @@ namespace file{
 			return 1;
 		}
 		if((num+stu.size())>=10000&&w) return 1;
-		for(i=1;i<=num;i++){
+		for(int iiii=1;iiii<=num;iiii++){
 			fin>>z.exam_name>>z.id>>z.name>>z.S; 
 			for(i=0;i<=z.exam_name.size();i++)
 				z.exam_name[i]=z.exam_name[i]-1;
@@ -751,7 +751,9 @@ namespace file{
 				if(it->exam_name==z.exam_name&&it->name==z.name&&it->id==z.id){
 					fileInputError:
 					system("cls");
-					cout<<"文件引入时出错：检测到相同学生信息！"<<endl;
+					cout<<"文件";
+					if(w) cout<<"自动";
+					cout<<"引入时出错：检测到相同学生信息！"<<endl;
 					cout<<"学号："<<it->id<<endl; 
 					cout<<"姓名："<<it->name<<endl;
 					cout<<"考试名称："<<it->exam_name<<endl;
@@ -1027,6 +1029,11 @@ int main(){
 			cout<<"请输入命令代码：";
 			o[0]=getch(); 
 			if(o[0]=='1'&&stu.size()<10000) record_input::rinput();
+			if(o[0]=='1'&&stu.size()>=10000){
+				system("cls");
+				cout<<"数据量过大，不可继续录入信息！"<<endl;
+				system("pause");
+			}
 			if(o[0]=='2') record_input::rchange();
 			if(o[0]=='3') record_input::rdelete();
 			if(o[0]=='4'){
