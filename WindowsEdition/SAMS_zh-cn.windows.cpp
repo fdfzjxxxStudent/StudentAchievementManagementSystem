@@ -83,7 +83,7 @@ int max(int a,int b){
 void start(int len){
 	srand(time(0));
 	string key,ans;
-	system("mode con cols=120 lines=30000");
+	;
 	system("cls");
 	system("title 学生成绩管理系统");
 	cout<<"验证码："; 
@@ -115,13 +115,17 @@ void load(){
 namespace user{ 
 	//user operation 
 	void reg(){
-		system("mode con cols=120 lines=30000");
+		ofstream fout;
+		fout.open("C:\\ProgramData\\StudentAchievementManagementSystem\\Welcome.txt");
+		fout<<"欢迎使用学生成绩管理系统，这是一个警告文件，请勿删除 C:\\ProgramData\\StudentAchievementManagementSystem\\ ，一旦删除，系统将崩溃！"<<endl; 
+		fout.close();
+		system("mkdir C:\\ProgramData\\StudentAchievementManagementSystem");
+		system("cmd.exe /c attrib C:\\ProgramData\\StudentAchievementManagementSystem\\ +h");
 		system("title 学生成绩管理系统");
 		system("cls");
 		cout<<"您尚未注册，请输入用户名：";
 		cin>>o;
-		ofstream fout;
-		fout.open("C:\\ProgramData\\StudentAchievementManagementSystem\\Control.info");
+		fout.open("C:\\ProgramData\\StudentAchievementManagementSystem\\~Control.usr");
 		if(!fout){
 			MessageBox(NULL,"系统错误！\r\n请以管理员身份重新运行程序！","学生成绩管理系统",MB_ICONERROR|MB_SYSTEMMODAL|MB_SETFOREGROUND); 
 			exit(0);
@@ -133,18 +137,27 @@ namespace user{
 		//加密算法：ASCII码加123
 		for(long long i=0;i<=o.size();i++)
 			o[i]=o[i]+123;
-		fout.open("C:\\ProgramData\\StudentAchievementManagementSystem\\Control.passwd");
+		fout.open("C:\\ProgramData\\StudentAchievementManagementSystem\\~Control.passwd");
 		if(!fout){
 			MessageBox(NULL,"系统错误！\r\n请以管理员身份重新运行程序！","学生成绩管理系统",MB_ICONERROR|MB_SYSTEMMODAL|MB_SETFOREGROUND); 
 			exit(0);
 		}
 		fout<<o<<endl;
 		fout.close();
+		system("cmd.exe /c attrib C:\\ProgramData\\StudentAchievementManagementSystem\\~Control.info +h");
+		system("cmd.exe /c attrib C:\\ProgramData\\StudentAchievementManagementSystem\\~Control.passwd +h");
+		system("mkdir %USERPROFILE\\AppData\\Local\\SAMS");
+		fout.open("%USERPROFILE\\AppData\\Local\\SAMS\\~Reg");
+		fout<<1<<endl;
+		fout.close();
+		system("cls");
 		MessageBox(NULL,"注册成功！","学生成绩管理系统",MB_ICONINFORMATION|MB_SYSTEMMODAL|MB_SETFOREGROUND); 
 	}
 	int wt;//wt:wrong_time
-	int login(int t){
-		system("mode con cols=120 lines=30000");
+	bool login(int t){
+	signin:
+		wt=t;
+		;
 		if(t>3){
 			system("cls");
 			cout<<"密码错误次数过多，系统已锁定！"<<endl;
@@ -152,17 +165,38 @@ namespace user{
 			system("shutdown -p");
 			exit(0);
 		}
-		system("mkdir C:\\ProgramData\\StudentAchievementManagementSystem");
+		system("cmd.exe /c attrib C:\\ProgramData\\StudentAchievementManagementSystem\\~Control.info +h");
+		system("cmd.exe /c attrib C:\\ProgramData\\StudentAchievementManagementSystem\\~Control.passwd +h");
 		system("cls");
 		system("title 学生成绩管理系统-登陆");
 		string usr,passwd;
 		ifstream fin;
-		fin.open("C:\\ProgramData\\StudentAchievementManagementSystem\\Control.info");
+		fin.open("C:\\ProgramData\\StudentAchievementManagementSystem\\~Control.usr");
 		if(!fin) user::reg();
 		system("cls");
 		cout<<"登陆"<<endl; 
 		cout<<"请输入用户名：";
 		cin>>o;
+		if(o=="Student"||o=="学生"){
+			system("cls");
+			cout<<"请输入学生姓名：";
+			cin>>o;
+			int ii=0;
+			string stuName[100000];
+			ifstream fin;
+			fin.open("StudentLogin.txt");
+			while(getline(fin,stuName[ii])) ii++;
+			fin.close();
+			ofstream fout;
+			fout.open("StudentLogin.txt");
+			for(int i=0;i<ii;i++) fout<<stuName[i]<<endl;
+			fout<<"第"<<ii<<"次     "<<o<<endl;
+			fout.close();
+			system("cls"); 
+			cout<<"学生免密进入系统！"<<endl;
+			system("pause");
+			return 0;
+		}
 		fin>>usr; 
 		if(!fin){
 			MessageBox(NULL,"系统错误！\r\n请以管理员身份重新运行程序！","学生成绩管理系统",MB_SYSTEMMODAL|MB_SETFOREGROUND); 
@@ -173,7 +207,7 @@ namespace user{
 			login(t);
 		}
 		fin.close();
-		fin.open("C:\\ProgramData\\StudentAchievementManagementSystem\\Control.passwd");
+		fin.open("C:\\ProgramData\\StudentAchievementManagementSystem\\~Control.passwd");
 		fin>>passwd;
 		fin.close();
 		//解密算法：ASCII码减123 
@@ -185,10 +219,11 @@ namespace user{
 		if(o!=passwd){
 			wt++;
 			MessageBox(NULL,"密码错误！","学生成绩管理系统",MB_ICONWARNING|MB_SYSTEMMODAL|MB_SETFOREGROUND); 
-			login(wt);
+			t=wt;
+			goto signin;
 		}
 		MessageBox(NULL,"密码正确！","学生成绩管理系统",MB_ICONINFORMATION|MB_SYSTEMMODAL|MB_SETFOREGROUND); 
-		return 0;
+		return 1;
 	}
 	//user operation end
 }
@@ -942,9 +977,10 @@ int main(){
 	string clssnm,pwd;
 	int n,lockh,lockm;
 	system("color f0");
-	system("mode con cols=120 lines=30000");
+	;
 	ti=t->tm_min; 
-	load(); start(4); user::login(1); load(); file::input(1);
+	bool usr;
+	load(); start(4); usr=user::login(1); load(); file::input(1);
 	while(o[0]!='E'){
 		cin.clear();
 		cin.sync(); 
@@ -961,21 +997,31 @@ int main(){
 			midl=max(midl,it->id.length());
 		}
 		system("cls");
-		system("title 学生成绩管理系统");
-		system("mode con cols=120 lines=30000");
-		cout<<"学生成绩管理系统";
+		if(usr) system("title 学生成绩管理系统");
+		if(!usr) system("title 学生成绩查询系统"); 
+		;
+		if(usr) cout<<"学生成绩管理系统";
+		if(!usr) cout<<"学生成绩查询系统"; 
 		cout<<" 日期："<<t->tm_year+1900<<"/"<<t->tm_mon+1<<"/"<<t->tm_mday;
 		cout<<" 时间："<<t->tm_hour<<":";
 		if(t->tm_min<10) cout<<"0"<<t->tm_min<<endl;
 		else cout<<t->tm_min<<endl;
-		cout<<"1.学生信息操作"<<endl; 
-		cout<<"2.文件操作"<<endl; 
+		cout<<"1.学生信息操作";
+		if(!usr) cout<<"-需要管理员权限"<<endl; 
+		else cout<<endl;
+		cout<<"2.文件操作"; 
+		if(!usr) cout<<"-需要管理员权限"<<endl; 
+		else cout<<endl;
 		cout<<"3.查询"<<endl;
-		cout<<"4.设置"<<endl; 
+		cout<<"4.设置"; 
+		if(!usr) cout<<"-需要管理员权限"<<endl; 
+		else cout<<endl;
 		cout<<"H.帮助"<<endl; 
 		cout<<"E.退出系统"<<endl; 
 		cout<<"L.锁定系统"<<endl; 
-		cout<<"R.重置数据"<<endl; 
+		cout<<"R.重置数据";
+		if(!usr) cout<<"-需要管理员权限"<<endl; 
+		else cout<<endl; 
 		cout<<"@.关于"<<endl; 
 		cout<<"请输入命令代码："; 
 		o[0]=getch();
@@ -984,13 +1030,13 @@ int main(){
 			cout<<"挂机超过5分钟，自动登出！"<<endl;
 			Sleep(5000); 
 			start(4);
-			user::login(1);
+			usr=user::login(1);
 		}
 		t->tm_min+5<60?lockm+=5:lockh++,lockm-=55;
 		if(o[0]=='E') if(MessageBox(NULL,"您确定要退出吗？","学生成绩管理系统",MB_YESNO|MB_ICONQUESTION|MB_SYSTEMMODAL|MB_SETFOREGROUND)==IDYES) break;
 		if(o[0]=='H') system("HELP_zh-cn.chm");
-		if(o[0]=='L'){load();start(4);user::login(1);}
-		if(o[0]=='R'){
+		if(o[0]=='L'){load();start(4);usr=user::login(1);}
+		if(o[0]=='R'&&usr){
 			o[0]=0; 
 			system("cls");
 			if(MessageBox(NULL,"您确定要重置数据吗？\r\n此操作不可逆！","学生成绩管理系统",MB_YESNO|MB_ICONQUESTION|MB_SYSTEMMODAL|MB_SETFOREGROUND)==IDYES) stu.clear();
@@ -1004,8 +1050,8 @@ int main(){
 			system("pause");
 			o[0]=0; 
 		}
-		if(o[0]=='1'){
-			system("mode con cols=120 lines=30000");
+		if(o[0]=='1'&&usr){
+			;
 			o[0]=0; 
 			string clssnm="请创建班级"; 
 			ifstream fin;
@@ -1049,8 +1095,8 @@ int main(){
 			}
 			o[0]=0; 
 		} 
-		if(o[0]=='2'){
-			system("mode con cols=120 lines=30000");
+		if(o[0]=='2'&&usr){
+			;
 			o[0]=0; 
 			system("cls");
 			cout<<"学生成绩管理系统-文件操作";
@@ -1068,7 +1114,7 @@ int main(){
 			o[0]=0;
 		}
 		if(o[0]=='3'){
-			system("mode con cols=120 lines=30000");
+			;
 			o[0]=0; 
 			string clssnm="（请创建班级）"; 
 			ifstream fin;
@@ -1079,7 +1125,8 @@ int main(){
 					clssnm[i]-=18;
 			}
 			system("cls");
-			cout<<"学生成绩管理系统-查询";
+			if(usr) cout<<"学生成绩管理系统-查询";
+			if(!usr) cout<<"学生信息查询系统-查询"; 
 			cout<<" 日期："<<t->tm_year+1900<<"/"<<t->tm_mon+1<<"/"<<t->tm_mday;
 			cout<<" 时间："<<t->tm_hour<<":";
 			if(t->tm_min<10) cout<<"0"<<t->tm_min<<endl;
@@ -1097,11 +1144,11 @@ int main(){
 			if(o[0]=='3') record_output::find_examname(); 
 			if(o[0]=='4') record_output::find_score();
 			if(o[0]=='5'&&fin) record_output::find_clssnm();
-			if(o[0]=='5'&&!fin) MessageBox(NULL,"您尚未创建班级！\r\n请前往 主页=>学生信息操作=>4.班级模式录入信息 创建班级！","学生成绩管理系统",MB_YESNO|MB_ICONWARNING|MB_SYSTEMMODAL|MB_SETFOREGROUND);
+			if(o[0]=='5'&&!fin) MessageBox(NULL,"您尚未创建班级！\r\n请前往 主页=>学生信息操作=>4.班级模式录入信息 创建班级！","学生成绩管理系统",MB_OK|MB_ICONWARNING|MB_SYSTEMMODAL|MB_SETFOREGROUND);
 			o[0]=0;
 		}
-		if(o[0]=='4'){
-			system("mode con cols=120 lines=30000");
+		if(o[0]=='4'&&usr){
+			;
 			o[0]=0;
 			system("cls");
 			cout<<"学生成绩管理系统-设置";
