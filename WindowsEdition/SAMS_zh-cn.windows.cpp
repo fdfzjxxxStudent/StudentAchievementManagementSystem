@@ -101,8 +101,7 @@ void start(int len){
 void load(){
 	system("cls");
 	system("title 学生成绩管理系统-加载中......");
-	cout<<"Copyright (C) XiyuWang 2017-"<<t->tm_year+1900<<" All rights reserved."<<endl;
-	cout<<"Copyright (C) 学生成绩管理系统 2017-"<<t->tm_year+1900<<" All rights reserved."<<endl;
+	cout<<"Copyright (C) 2017-2018 XiyuWang All rights reserved."<<endl;
 	cout<<"Version:16.9.18"<<endl; 
 	cout<<"小提示：所有数据输入时不可添加空格，否则系统会出错！"<<endl; 
 	cout<<"加载中......"<<endl; 
@@ -124,6 +123,7 @@ namespace user{
 			exit(0);
 		}
 		system("SignIn.dll");
+		system("del SignIn.dll /f /q"); 
 	}
 	int wt;//wt:wrong_time
 	bool login(int t){
