@@ -2,7 +2,8 @@
 <h3>这是一个本地管理学生成绩的系统，使用加密过的文件储存信息。</h3>
 <h3>另外，Windows版本同时支持管理和查询。</h3> 
 <h3>Windows版本学生模式登陆用户名“Student”或“学生”，免密码。</h3>
-<h4>作者：<a href="https://github.com/XiyuWang2006/">XiyuWang2006</a></h4>
+<h4>作者：<a href="https://github.com/XiyuWang2006/">XiyuWang2006</a>，突然发现有人和我同名同姓……</h4>
+
 <hr></hr>
 <h3>功能：</h3>
 <h3>1.两种输入信息方式，支持更改信息、删除信息</h3>
