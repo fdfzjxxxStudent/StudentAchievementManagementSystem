@@ -9,7 +9,7 @@
 //Code Language: C++
 
 //Lines:1100+
-//Length:32000+ 
+//Length:34000+ 
 
 /* 学生成绩管理系统 描述：
 该系统实现的功能
@@ -146,7 +146,7 @@ namespace user{
 		fin.open("C:\\ProgramData\\StudentAchievementManagementSystem\\~Control.usr");
 		if(!fin) user::reg();
 		system("cls");
-		cout<<"登陆"<<endl; 
+		cout<<"登陆（管理员输入用户名和密码；学生用户名“学生”或“Student”，免密码）"<<endl;  
 		cout<<"请输入用户名：";
 		cin>>o;
 		if(o=="Student"||o=="学生"){
@@ -1060,6 +1060,8 @@ int main(){
 				fin.open("ClassEdition.dat");
 				if(!fin){
 					cout<<"您尚未创建班级！请按任意键继续......"<<endl;
+					cout<<"注意：班级模式中的班级名和密码可以更改，学生信息一旦录入系统将无法更改，请在输入时仔细检查姓名和学号！"<<endl;
+					cout<<"如果要取消创建班级，请关闭本系统！"<<endl; 
 					getch();
 					ClassEdition::make();
 				}
@@ -1137,17 +1139,33 @@ int main(){
 			o[0]=getch();
 			if(o[0]=='1'){
 				while(1){
+					bool admin;
 					system("cls");
 					start(4);
-					if(MessageBox(NULL,"您需要重新登录！\r\n按是继续，按否停止更改！","学生成绩管理系统",MB_YESNO|MB_ICONWARNING|MB_SYSTEMMODAL|MB_SETFOREGROUND)==IDYES) user::login(1);
+					if(MessageBox(NULL,"您需要重新登录！\r\n按是继续，按否停止更改！","学生成绩管理系统",MB_YESNO|MB_ICONWARNING|MB_SYSTEMMODAL|MB_SETFOREGROUND)==IDYES) admin=user::login(1);
 					else break;
+					if(!admin){
+						MessageBox(NULL,"不可使用学生模式登陆！","学生成绩管理系统",MB_ICONERROR|MB_SYSTEMMODAL|MB_SETFOREGROUND); 
+						break;
+					}
 					if(MessageBox(NULL,"登陆成功！\r\n按是继续，按否停止更改！","学生成绩管理系统",MB_YESNO|MB_ICONWARNING|MB_SYSTEMMODAL|MB_SETFOREGROUND)==IDYES) user::reg();
 					else break;
 					MessageBox(NULL,"完成！","学生成绩管理系统",MB_ICONINFORMATION|MB_SYSTEMMODAL|MB_SETFOREGROUND); 
 					break;
 				}
 			}
-			if(o[0]=='2') ClassEdition::reg();
+			if(o[0]=='2'){
+				bool admin;
+				system("cls");
+				start(4);
+				if(MessageBox(NULL,"您需要重新登录！\r\n按是继续，按否停止更改！","学生成绩管理系统",MB_YESNO|MB_ICONWARNING|MB_SYSTEMMODAL|MB_SETFOREGROUND)==IDYES) admin=user::login(1);
+				else break;
+				if(!admin){
+					MessageBox(NULL,"不可使用学生模式登陆！","学生成绩管理系统",MB_ICONERROR|MB_SYSTEMMODAL|MB_SETFOREGROUND); 
+					break;
+				}
+				ClassEdition::reg();
+			}
 			if(o[0]=='3'){
 				system("cls");
 				MessageBox(NULL,"请发送邮件至：\r\nXiyuWang_Code@hotmail.com","学生成绩管理系统",MB_ICONINFORMATION|MB_SYSTEMMODAL|MB_SETFOREGROUND); 
@@ -1162,7 +1180,7 @@ int main(){
 				}
 				system("cls");
 				cout<<"当前数据量："<<stu.size()<<endl; 
-				if(fin) cout<<"班级 "<<clssnm<<" 中的学生量："<<stuinfo.size()<<endl; 
+				if(fin&&stuinfo.size()!=0) cout<<"班级 "<<clssnm<<" 中的学生量："<<stuinfo.size()<<endl; 
 				system("pause");
 			}
 		}
