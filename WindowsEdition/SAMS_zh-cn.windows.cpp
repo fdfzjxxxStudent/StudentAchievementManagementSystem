@@ -8,8 +8,8 @@
 //Description Language: zh-cn
 //Code Language: C++
 
-//Lines:1100+
-//Length:34000+ 
+//Lines:1200+
+//Length:35000+ 
 
 /* 学生成绩管理系统 描述：
 该系统实现的功能
@@ -949,7 +949,6 @@ int main(){
 	string clssnm,pwd;
 	int n,lockh,lockm;
 	system("color f0");
-	;
 	ti=t->tm_min; 
 	bool usr;
 	load(); start(4); usr=user::login(1); load(); file::input(1);
@@ -958,6 +957,7 @@ int main(){
 		cin.sync(); 
 		time_t tt = time(NULL);	
 		tm* t=localtime(&tt);
+		t->tm_min+5>=60?lockm=t->tm_min-50,lockh=t->tm_hour+1:lockm=t->tm_min+5,lockh=t->tm_hour;
 		if(t->tm_min!=ti&&stu.size()>0){
 			file::output(1);
 			ti=t->tm_min;
@@ -971,7 +971,6 @@ int main(){
 		system("cls");
 		if(usr) system("title 学生成绩管理系统");
 		if(!usr) system("title 学生成绩查询系统"); 
-		;
 		if(usr) cout<<"学生成绩管理系统";
 		if(!usr) cout<<"学生成绩查询系统"; 
 		cout<<" 日期："<<t->tm_year+1900<<"/"<<t->tm_mon+1<<"/"<<t->tm_mday;
@@ -1011,7 +1010,23 @@ int main(){
 		if(o[0]=='R'&&usr){
 			o[0]=0; 
 			system("cls");
-			if(MessageBox(NULL,"您确定要重置数据吗？\r\n此操作不可逆！","学生成绩管理系统",MB_YESNO|MB_ICONQUESTION|MB_SYSTEMMODAL|MB_SETFOREGROUND)==IDYES) stu.clear();
+			if(MessageBox(NULL,"您确定要重置数据吗？\r\n此操作不可逆！","学生成绩管理系统",MB_YESNO|MB_ICONQUESTION|MB_SYSTEMMODAL|MB_SETFOREGROUND)==IDYES){
+				while(1){
+					bool admin;
+					system("cls");
+					start(4);
+					if(MessageBox(NULL,"您需要验证管理员身份！\r\n按是继续，按否停止更改！","学生成绩管理系统",MB_YESNO|MB_ICONWARNING|MB_SYSTEMMODAL|MB_SETFOREGROUND)==IDYES) admin=user::login(1);
+					else break;
+					if(!admin){
+						MessageBox(NULL,"不可使用学生模式登陆！","学生成绩管理系统",MB_ICONERROR|MB_SYSTEMMODAL|MB_SETFOREGROUND); 
+						break;
+					}
+					if(MessageBox(NULL,"验证通过！\r\n按是继续，按否停止更改！","学生成绩管理系统",MB_YESNO|MB_ICONWARNING|MB_SYSTEMMODAL|MB_SETFOREGROUND)==IDYES) stu.clear();
+					else break;
+					MessageBox(NULL,"完成！","学生成绩管理系统",MB_ICONINFORMATION|MB_SYSTEMMODAL|MB_SETFOREGROUND); 
+					break;
+				}
+			}
 			o[0]=0; 
 		}
 		if(o[0]=='@'){
@@ -1142,29 +1157,32 @@ int main(){
 					bool admin;
 					system("cls");
 					start(4);
-					if(MessageBox(NULL,"您需要重新登录！\r\n按是继续，按否停止更改！","学生成绩管理系统",MB_YESNO|MB_ICONWARNING|MB_SYSTEMMODAL|MB_SETFOREGROUND)==IDYES) admin=user::login(1);
+					if(MessageBox(NULL,"您需要验证管理员身份！\r\n按是继续，按否停止更改！","学生成绩管理系统",MB_YESNO|MB_ICONWARNING|MB_SYSTEMMODAL|MB_SETFOREGROUND)==IDYES) admin=user::login(1);
 					else break;
 					if(!admin){
 						MessageBox(NULL,"不可使用学生模式登陆！","学生成绩管理系统",MB_ICONERROR|MB_SYSTEMMODAL|MB_SETFOREGROUND); 
 						break;
 					}
-					if(MessageBox(NULL,"登陆成功！\r\n按是继续，按否停止更改！","学生成绩管理系统",MB_YESNO|MB_ICONWARNING|MB_SYSTEMMODAL|MB_SETFOREGROUND)==IDYES) user::reg();
+					if(MessageBox(NULL,"验证通过！\r\n按是继续，按否停止更改！","学生成绩管理系统",MB_YESNO|MB_ICONWARNING|MB_SYSTEMMODAL|MB_SETFOREGROUND)==IDYES) user::reg();
 					else break;
 					MessageBox(NULL,"完成！","学生成绩管理系统",MB_ICONINFORMATION|MB_SYSTEMMODAL|MB_SETFOREGROUND); 
 					break;
 				}
 			}
 			if(o[0]=='2'){
-				bool admin;
-				system("cls");
-				start(4);
-				if(MessageBox(NULL,"您需要重新登录！\r\n按是继续，按否停止更改！","学生成绩管理系统",MB_YESNO|MB_ICONWARNING|MB_SYSTEMMODAL|MB_SETFOREGROUND)==IDYES) admin=user::login(1);
-				else break;
-				if(!admin){
-					MessageBox(NULL,"不可使用学生模式登陆！","学生成绩管理系统",MB_ICONERROR|MB_SYSTEMMODAL|MB_SETFOREGROUND); 
-					break;
+				while(1){ 
+					bool admin;
+					system("cls");
+					start(4);
+					if(MessageBox(NULL,"您需要验证管理员身份！\r\n按是继续，按否停止更改！","学生成绩管理系统",MB_YESNO|MB_ICONWARNING|MB_SYSTEMMODAL|MB_SETFOREGROUND)==IDYES) admin=user::login(1);
+					else break;
+					if(!admin){
+						MessageBox(NULL,"不可使用学生模式登陆！","学生成绩管理系统",MB_ICONERROR|MB_SYSTEMMODAL|MB_SETFOREGROUND); 
+						break;
+					}
+					if(MessageBox(NULL,"验证通过！\r\n按是继续，按否停止更改！","学生成绩管理系统",MB_YESNO|MB_ICONWARNING|MB_SYSTEMMODAL|MB_SETFOREGROUND)==IDYES) ClassEdition::reg();
+					else break;
 				}
-				ClassEdition::reg();
 			}
 			if(o[0]=='3'){
 				system("cls");
