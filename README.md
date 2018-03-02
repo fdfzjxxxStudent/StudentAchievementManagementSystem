@@ -1,8 +1,14 @@
 # StudentAchievementManagementSystem
 <h3>这是一个本地管理学生成绩的系统，使用加密过的文件储存信息。</h3>
-<h3>另外，Windows版本同时支持管理和查询。</h3> 
-<h3>Windows版本学生模式登陆用户名“Student”或“学生”，免密码。</h3>
 <h4>作者：<a href="https://github.com/XiyuWang2006/">XiyuWang2006</a></h4>
+<h3>README.md最近更新：2018.3.2 18:30</h3>
+<h3>源代码最新更新日期：2018.3.1</h3>
+<hr />
+<h3>Windows版本同时支持管理和查询。</h3> 
+<h3>Windows版本学生模式登陆用户名“Student”或“学生”，免密码。</h3>
+<h3>本次更新的内容：重要信息更改时必须以管理员身份验证</h3>
+<h3>下一次更新内容：学生登陆时必须保证该学生信息存在，以防乱输入姓名</h3>
+<hr />
 
 <hr></hr>
 <h3>功能：</h3>
