@@ -187,13 +187,23 @@ namespace user{
 			passwd[i]=passwd[i]-123;
 		cout<<"请输入密码：";
 		long long i=0;
-		cin>>o;
-		if(o!=passwd){
-			wt++;
-			MessageBox(NULL,"密码错误！","学生成绩管理系统",MB_ICONWARNING|MB_SYSTEMMODAL|MB_SETFOREGROUND); 
-			t=wt;
-			goto signin;
+		
+		int ii;
+		for(ii=0;char tmp=getch();ii++){
+			if(tmp==13) break;
+			o[ii]=tmp;
+			for(int iii=0;iii<ii%3;iii++,cout<<"*");
 		}
+		cout<<endl;
+		for(i=0;i<ii;i++){
+			if(o[i]!=passwd[i]){
+				wt++;
+				MessageBox(NULL,"密码错误！","学生成绩管理系统",MB_ICONWARNING|MB_SYSTEMMODAL|MB_SETFOREGROUND); 
+				t=wt;
+				goto signin;
+			}
+		}
+		
 		MessageBox(NULL,"密码正确！","学生成绩管理系统",MB_ICONINFORMATION|MB_SYSTEMMODAL|MB_SETFOREGROUND); 
 		return 1;
 	}
@@ -873,20 +883,26 @@ namespace ClassEdition{
 		int n=0;
 		ifstream fin;
 		fin.open("ClassEdition.dat");
-		fin>>clssnm>>pwd>>n;
+		fin>>clssnm>>passwd>>n;
 		for(i=0;i<clssnm.length();i++)
 			clssnm[i]-=18;
-		for(i=0;i<pwd.length();i++)
-			pwd[i]-=18;
+		for(i=0;i<passwd.length();i++)
+			passwd[i]-=18;
 		cout<<"班级模式-登陆"<<endl; 
 		cout<<"班级名称："<<clssnm<<endl;
 		cout<<"密码：";
-		cin>>passwd;
-		if(passwd!=pwd){
-			system("cls");
-			cout<<"密码错误！"<<endl; 
-			system("pause");
-			return 1;
+		int ii;
+		for(ii=0;char tmp=getch();ii++){
+			if(tmp==13) break;
+			o[ii]=tmp;
+			for(int iii=0;iii<ii%3;iii++,cout<<"*");
+		}
+		cout<<endl;
+		for(i=0;i<ii;i++){
+			if(o[i]!=passwd[i]){
+				MessageBox(NULL,"密码错误！","学生成绩管理系统",MB_ICONWARNING|MB_SYSTEMMODAL|MB_SETFOREGROUND); 
+				return 1;
+			}
 		}
 		system("cls");
 		cout<<"请输入考试名称：";
