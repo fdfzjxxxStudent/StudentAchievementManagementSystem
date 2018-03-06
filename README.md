@@ -1,5 +1,6 @@
 # 💯StudentAchievementManagementSystem
 <h3>这是一个本地管理学生成绩的系统，使用加密🔒过的文件储存信息。</h3>
+<h3>版本：16.9.18</h3>
 <h4>作者：<a href="https://github.com/XiyuWang2006/">XiyuWang2006</a></h4>
 <h3>README.md📖最近更新：2018.3.4 15:30🕞</h3>
 <h3>源代码最新更新日期📅：2018.3.3</h3>
